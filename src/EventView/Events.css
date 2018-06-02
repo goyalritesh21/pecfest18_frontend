@@ -1,0 +1,55 @@
+.White-background-wrapper {
+	background-color: white;
+	width: 100%;
+}
+
+.Events-wrapper {
+	display: block;
+	max-width: 768px;
+	margin: 0 auto 1em auto;
+	padding-top: 5em;
+	background-color: white;
+	color: #222122;
+}
+
+.Events-heading {
+	margin-bottom: 12px;
+}
+
+.Events {
+	display:  flex;
+	flex-flow: row wrap;
+
+	flex: 1 1 360px;
+
+	justify-content: flex-start;
+	align-items: stretch;
+
+}
+
+@media only screen and (max-width: 768px) {
+	.Events {
+		width: 100%;
+		flex-flow: column;
+		white-space: normal;
+	}
+
+	.Events-wrapper {
+		margin-left: 1em;
+		margin-right: 1em;
+	}
+}
+
+small {
+	text-transform: uppercase;
+	color: #777;
+	font-size: 0.7em;
+}
+
+.Events-selected {
+	position: absolute;
+	margin: 0;
+	border: none;
+	box-shadow: none;
+	z-index: 10000;
+}

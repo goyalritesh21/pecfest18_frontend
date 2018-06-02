@@ -1,0 +1,171 @@
+#event_desc {
+    max-width: 1000px;
+    display: block;
+    margin: 5em auto;
+}
+
+
+code {
+    border-radius: 3px;
+    border: 1px #FFBA00 solid;
+    color : #ff9800 ;
+    font-family: inherit;
+    padding: 2px;
+    font-weight: 700 ;
+    font-style: normal ;
+    margin-right: 1em ;
+}
+p > a {
+    text-decoration: underline;
+}
+
+#prizes_worth {
+
+}
+
+#event_banner {
+    border-bottom: 1px black solid;
+    padding-bottom: 5px;
+}
+
+#register_button {
+    text-align: center;
+}
+
+#event_sidebar {
+    /*   min-width: 160px;
+width: 100%;
+padding: 1rem;
+min-height: 6rem;*/
+    max-width: 380px;
+}
+
+.indicator {
+    display: none;
+}
+
+#event_prize_wrapper {
+    display: flex;
+}
+
+#event_prize {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.eventPrize {
+    display: inline-block;
+}
+
+*[disabled] {
+    color: gray ;
+    cursor: default ;
+}
+
+*[disabled]:hover {
+    color: gray ;
+}
+
+#event_prize {
+    font-weight: 700;
+}
+
+.btn {
+    padding: 1em;
+    display: flex;
+    border: none;
+    font-size: 1em;
+    font-family: inherit;
+    color: #196070;
+    text-transform: uppercase;
+    background: transparent;
+    cursor: pointer;
+}
+
+.btn:hover {
+    color: #50a0b0;
+}
+
+ul {
+    list-style-type: none;
+    list-style-position: 0;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    white-space: nowrap;
+    margin: 0;
+    overflow: auto;
+}
+
+li.tab {
+    display: inline-block;
+    flex-grow: 1;
+    flex-basis: 120px;
+    padding: 1em;
+    text-align: center;
+    background-color: #196070;
+    color: #E6FFE0;
+    text-transform: uppercase;
+}
+
+.teal-text.active {
+    font-weight: bold;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.s12 {
+    flex-grow: 1;
+    flex-wrap: wrap;
+}
+
+.card {
+    box-shadow: 0px 1px 3px gray;
+    padding: 1em;
+    margin: 0.5em;
+    border-radius: 3px;
+}
+
+.card-content, .card-action {
+    margin-bottom: 1em;
+}
+
+.card-action > a {
+    color: #196070;
+}
+
+.card-content > .card-title {
+    font-size: 1.2em;
+    margin-bottom: 1em;
+    font-weight: 700;
+}
+
+#event_name {
+
+}
+
+h1 {
+    color: #444;
+}
+
+h3 {
+    color: #888;
+}
+
+div.card-content {
+    padding: 1em;
+}
+
+.grey {
+    background:;
+}
+
+.card.darken-1 {
+    margin: 0;
+}
+

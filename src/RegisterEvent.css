@@ -1,0 +1,79 @@
+.MemberInput {
+}
+
+.RemoveButton {
+}
+
+.RegisterEvent-wrapper, .DialogBox {
+	position: absolute;
+	z-index: 10000;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background: white;
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.RegisterEvent {
+	max-width: 1000px;
+	margin: auto;
+	padding: 1em;
+}
+
+.FormButton {
+	border: none;
+	background: transparent;
+	cursor: pointer;
+	font-family: inherit;
+	font-size: 1em;
+	padding: 1em;
+}
+
+.RegisterEvent-title > h1 {
+	font-size: 3.2em;
+	color: gray;
+}
+
+.RegisterEvent-eventname {
+	color: black;
+}
+
+.RegisterEvent-instructions {
+	color: gray;
+	margin-bottom: 2em;
+}
+
+.RegisterEvent-teamsize {
+	color: black;
+	font-weight: 700;
+}
+
+.RegisterEvent-memberSize {
+	margin-bottom: 1em;
+}
+
+.MemberInput-select {
+    border: none;
+    outline: none;
+    font-size: 2em;
+    font-weight: 700;
+    font-family: inherit;
+    width: 100%;
+    background: transparent;
+}
+
+.MemberInput {
+	margin-bottom: 1em;
+}
+
+option {
+	font-family: inherit;
+	font-weight: 700;
+	outline: none;
+	font-size: 1em;
+}
+
+option:hover {
+	background: gray;
+}
+

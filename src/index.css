@@ -1,0 +1,18 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  transition: background-color 1s;
+}
+
+.center {
+	text-align: center;
+}
+
+[contenteditable="true"]:focus {
+	outline: none;
+}
+
+button:focus {
+	outline: none;
+}

@@ -1,0 +1,15 @@
+.Progress {
+	margin:auto;
+	text-align:center;
+	letter-spacing: normal;
+}
+
+.Progress-percent {
+	padding: 0.5em;
+}
+
+.Progress-wrapper {
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
