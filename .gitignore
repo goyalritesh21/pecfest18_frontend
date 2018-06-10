@@ -8,8 +8,14 @@
 
 # production
 /build
+/.idea/*
+/scripts
+/extras
+/config
+
 
 # misc
+.gitignores
 .DS_Store
 .env.local
 .env.development.local
