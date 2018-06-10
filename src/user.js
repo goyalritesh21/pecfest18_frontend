@@ -104,7 +104,6 @@ window._user = {
   },
 
   signUp(data, config) {
-    console.log(api.url);
     fetch(api.url + 'user/create', {
       method: 'post',
       headers: {
