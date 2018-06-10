@@ -78,11 +78,16 @@ window._user = {
     }
   },
 
-  login(userId, Pwd, config) {
-    fetch(api.url + 'user/' + userId + '/password/' + Pwd)
+  login(data, config) {
+    fetch(api.url + 'user/signIn', {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
       .then(data => data.json())
       .then(user => {
-          console.log(user);
         if (user.ACK !== "SUCCESS") {
           config.onFailed(user);
           return;
@@ -147,7 +152,13 @@ window._user = {
   },
 
   checkVerified(mobile, config) {
-    fetch(api.url + 'user/is_verified/' + mobile)
+    fetch(api.url + 'user/isVerified', {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ mobile }),
+    })
       .then(data => data.json())
       .then(json => {
         if (json.ACK !== 'SUCCESS') {

@@ -141,23 +141,25 @@ class GetPassword extends Component {
 var md5 = require('md5');
 
 export default class LoginForm extends Component {
-    state = {
-        emailId: '',
-        pwd: '',
-        error: false,
-        loggingin: false,
-        done: false,
-        forgot: false,
+
+    constructor(props){
+        super(props);
+        this.state = {
+            emailId: '',
+            pwd: '',
+            error: false,
+            loggingin: false,
+            done: false,
+            forgot: false,
+        };
+        this.emailId = React.createRef();
+        this.password = React.createRef();
+
     }
 
-    handleDoneEmail = ({ target }) => {
-        this.setState({ emailId: target.value, error: false });
-    }
-
-
-
-    handleDonePwd= ({ target }) => {
-        this.setState({ pwd: md5(target.value), error: false });
+    handleDone = (prop) => {
+        const user = Object.assign({}, this.state.user, prop);
+        this.setState({ user, disabled: false });
     }
 
     handleFailed = (emailId) => {
@@ -171,9 +173,12 @@ export default class LoginForm extends Component {
 
     handleClick = () => {
         this.setState({emailId: document.getElementById('emailId').value, pwd: md5(document.getElementById('password').value)});
-        console.log(document.getElementById('emailId').value);
-        console.log(md5(document.getElementById('password').value));
-        user.login(document.getElementById('emailId').value, md5(document.getElementById('password').value), {
+        const newUser = {
+            email: this.emailId.current.get(),
+            password : md5(this.password.current.get())
+        }
+        this.setState({ user: newUser } );
+        user.login(newUser, {
             onSuccess: this.handleSuccess,
             onFailed: this.handleFailed
         });
@@ -205,10 +210,10 @@ export default class LoginForm extends Component {
                 <h2>SIGN IN</h2>
                 <div>
                     <div className="Input">
-                        <GetEmail done={this.handleDoneEmail}/>
+                        <GetEmail ref={this.emailId} done={this.handleDone}/>
                     </div>
                     <div className="Input">
-                        <GetPassword done={this.handleDonePwd}/>
+                        <GetPassword ref={this.password} done={this.handleDones}/>
                     </div>
                     <div className={'submitButtonLogin'}>
                         <button className={'submitSignIn'} disabled={this.state.loggingin || this.state.error}

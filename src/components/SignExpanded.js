@@ -453,8 +453,8 @@ class SignExpanded extends Component {
         }
         var md5 = require('md5');
         const newUser = {
-            fName: this.fName.current.get(),
-            lName : this.lName.current.get(),
+            firstName: this.fName.current.get(),
+            lastName : this.lName.current.get(),
             email: this.email.current.get(),
             mobile: this.mobileNumber.current.get(),
             college: this.college.current.get(),
@@ -462,7 +462,6 @@ class SignExpanded extends Component {
             gender: this.state.gender,
             password : md5(this.password.current.get())
         }
-        console.log(newUser);
         this.setState({ user: newUser } );
 
 
