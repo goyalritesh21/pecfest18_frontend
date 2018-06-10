@@ -23,7 +23,6 @@ window._user = {
       return null
     }
   },
-
   savePreference(name, value) {
     this.preferences[name] = value;
 
@@ -79,11 +78,12 @@ window._user = {
     }
   },
 
-  login(userId, config) {
-    fetch(api.url + 'user/' + userId.toUpperCase())
+  login(userId, Pwd, config) {
+    fetch(api.url + 'user/' + userId + '/password/' + Pwd)
       .then(data => data.json())
       .then(user => {
-        if (user.ACK !== 'SUCCESS') {
+          console.log(user);
+        if (user.ACK !== "SUCCESS") {
           config.onFailed(user);
           return;
         }
@@ -92,12 +92,14 @@ window._user = {
         config.onSuccess(user.pecfestId);
       })
       .catch(err => {
-        console.log("This should not happen");
+          console.log(err);
+        console.log("This should not happen in log in");
         config.onFailed(err);
       })
   },
 
   signUp(data, config) {
+    console.log(api.url);
     fetch(api.url + 'user/create', {
       method: 'post',
       headers: {

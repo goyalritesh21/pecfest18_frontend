@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import NavigationDialog from './NavigationDialog';
 import { withRouter } from 'react-router-dom';
 import Navbar from './Navbar';
-
 import './NavigationButton.css';
 
 class NavigationButton extends Component {
@@ -30,7 +29,7 @@ class NavigationButton extends Component {
 	}
 
 	handleLocationChange = location => {
-		if (location.pathname === '/' && !window.checkIfMobile()) {
+		if (location.pathname === '/' || location.pathname === '/register' && !window.checkIfMobile()) {
 			this.setState({ compact: false })
 		} else {
 			this.setState({ compact: true })
