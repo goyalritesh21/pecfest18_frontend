@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import './images';
-import App from './App';
-import PECFEST from './PECFEST';
+//import './index.css';
+//import './images';
+//import App from './App';
+//import PECFEST from './PECFEST';
+import  Dasboardcreate from './dashboard'
 import registerServiceWorker from './registerServiceWorker';
 
-class Container extends Component {
+/*class Container extends Component {
 	state = {
 		begin: false
 	}
@@ -21,6 +22,7 @@ class Container extends Component {
 		)
 	}
 }
+*/
 
-ReactDOM.render(<Container />, document.getElementById('root'));
+ReactDOM.render(<Dasboardcreate/>, document.getElementById('root'));
 registerServiceWorker();

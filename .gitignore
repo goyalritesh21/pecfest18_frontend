@@ -8,7 +8,12 @@
 
 # production
 /build
-
+./idea
+.idea/
+package-lock.json
+yarn/
+.gitignore
+nodejs/
 # misc
 .DS_Store
 .env.local
