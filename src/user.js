@@ -23,7 +23,6 @@ window._user = {
       return null
     }
   },
-
   savePreference(name, value) {
     this.preferences[name] = value;
 
@@ -79,11 +78,17 @@ window._user = {
     }
   },
 
-  login(userId, config) {
-    fetch(api.url + 'user/' + userId.toUpperCase())
+  login(data, config) {
+    fetch(api.url + 'user/signIn', {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
       .then(data => data.json())
       .then(user => {
-        if (user.ACK !== 'SUCCESS') {
+        if (user.ACK !== "SUCCESS") {
           config.onFailed(user);
           return;
         }
@@ -92,7 +97,8 @@ window._user = {
         config.onSuccess(user.pecfestId);
       })
       .catch(err => {
-        console.log("This should not happen");
+          console.log(err);
+        console.log("This should not happen in log in");
         config.onFailed(err);
       })
   },
@@ -145,7 +151,13 @@ window._user = {
   },
 
   checkVerified(mobile, config) {
-    fetch(api.url + 'user/is_verified/' + mobile)
+    fetch(api.url + 'user/isVerified', {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ mobile }),
+    })
       .then(data => data.json())
       .then(json => {
         if (json.ACK !== 'SUCCESS') {

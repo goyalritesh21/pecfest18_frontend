@@ -397,7 +397,6 @@ class SignUpSteps extends Component {
 		)
 	}
 }
-
 export default class SignUpForm extends Component {
 	render() {
 		return (
