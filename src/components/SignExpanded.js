@@ -4,21 +4,78 @@ import '../SignUpOrLoginForm.css';
 import {Motion, spring} from 'react-motion';
 import Input from './Input';
 import SubmitButton from './SubmitButton';
-import fetch from 'isomorphic-fetch';
 import '../user.js';
 import user from '../user';
 import LoginForm from '../LoginForm.js'
-import ForgotIDForm from '../LoginForm.js'
+import {MdArrowForward} from 'react-icons/lib/md';
+import Loader from '../Loader';
 import 'md5';
-class ControlButtons extends Component {
-	render() {
-		return (
+import '../SignUpForm.css';
 
-			<SubmitButton type={this.props.type} onSubmit={this.props.type === 'SignIn' ? this.handleLogIn.bind(this) : this.handleSignUp.bind(this)} />
+class VerifyOtpForm extends Component {
+    state = {
+        status: '',
+        otp: '',
+        done: false,
+        forgotBack: false,
+        disabled: false,
+        checking: false,
+    };
 
-		)
-	}
+    handleFailed = (err) => {
+        console.log(err);
+
+        this.setState({
+            checking: false,
+            error: true,
+            message: err.message,
+        })
+    };
+
+    handleNext = () => {
+        user.verifyOtp(this.state.otp, this.props.mobile, { onSuccess: (id) => {
+            this.props.done(id)
+                setTimeout(this.props.onSuccess, 1000);
+            },
+            onFailed: this.handleFailed });
+        this.setState({ checking: true });
+    };
+
+    handleChange = ({ target }) => {
+        this.setState({ otp: target.value, error: false });
+    };
+
+
+    render() {
+        return (<div>
+                <h2>Verify OTP</h2>
+                <form className={"SignUpForm"}>
+                    <div className="SignUpElement">
+                        <p>OTP sent on your registered mobile number.</p>
+                        <div className="StatusMessage">
+                            {this.state.status}
+                        </div>
+                        <div className="Input">
+                            <input
+                                id="otp"
+                                ref = "otp"
+                                disabled={this.state.checking}
+                                type="password"
+                                autoComplete={false}
+                                required
+                                placeholder="Enter OTP"
+                                onChange={this.handleChange}/>
+                        </div>
+                    </div>
+                    <div className={'submitButtonLogin'}>
+                        <button type={'submit'} className={'submitSignUp'} onClick={this.handleNext}><MdArrowForward/></button>
+                    </div>
+                </form>
+            </div>
+        );
+    }
 }
+
 
 class GetFirstName extends Component {
     state = {
@@ -128,7 +185,7 @@ class GetNumber extends Component {
     render() {
         return (
             <input
-                id="mobileNumber"
+                id="mobile"
                 type="numeric"
                 autoComplete="false"
                 required
@@ -277,58 +334,6 @@ class GetAccomodationDetails extends Component {
     }
 }
 
-class VerifyMobileNumber extends Component {
-    state = {
-        otp: '',
-        disabled: false,
-        checking: false,
-    }
-
-    handleFailed = (err) => {
-        console.log(err);
-
-        this.setState({
-            checking: false,
-            error: true,
-            message: err.message,
-        })
-    }
-
-    handleNext = () => {
-        user.verifyOtp(this.state.otp, this.props.mobile, { onSuccess: (id) => this.props.done(id), onFailed: this.handleFailed });
-        this.setState({ checking: true });
-    }
-
-    handleChange = ({ target }) => {
-        this.setState({ otp: target.value, error: false });
-    }
-
-    render() {
-        return (
-            <div className="SignUpElement">
-                <div className="SignUpElement-description">
-                    <p>OTP has been sent to your mobile.</p>
-                </div>
-                <Input type="text"
-                       disabled={this.state.checking}
-                       placeholder="Enter OTP"
-                       className="SignUpInput"
-                       onChange={this.handleChange}
-                />
-
-                <div className="Control-buttons">
-                    <button onClick={this.handleNext} disabled={!this.state.otp.length} className="SignUpNextButton">
-                        { 'Next' }
-                    </button>
-                    {
-                        this.state.error ? <p className="SignUpForm-ErrorMessage">{this.state.message}</p> : ""
-                    }
-                </div>
-            </div>
-        )
-    }
-}
-
 class FinalStep extends Component {
     render() {
         return (
@@ -358,7 +363,7 @@ class SignExpanded extends Component {
 			</div>
 		}
 		else{
-			SignInInput = <div>
+			SignInInput = <div >
                 <h2>SIGN UP</h2
                 ><div class="Input">
 					<GetFirstName ref={this.fName} done={this.handleDone}/>
@@ -376,11 +381,13 @@ class SignExpanded extends Component {
 				<GetGender ref={this.gender} done={this.handleDone}/>
 				<GetAccomodationDetails ref={this.accomodation} done={this.handleDone}/>
                 </div>
-                <SubmitButton type={this.props.type} onSubmit={this.props.type === 'signIn' ? this.handleLogIn : this.handleSignUp} />
+                <SubmitButton type={this.props.type} onSubmit={this.handleSignUp} onClick={this.handleVerifyOtp}/>
 			</div>
 		}
 		return SignInInput;
 	}
+
+
 
 	constructor(props) {
 		super(props);
@@ -392,6 +399,7 @@ class SignExpanded extends Component {
             disabled: true,
             gender: "Male",
             accomodation: 0,
+            otp: false,
 
 		};
         this.fName = React.createRef();
@@ -412,16 +420,21 @@ class SignExpanded extends Component {
 
 	isFinished = () => {
 		this.setState({animIsFinished: true});
-	}
+	};
 
     handleDone = (prop) => {
         const user = Object.assign({}, this.state.user, prop);
         this.setState({ user, disabled: false });
-    }
+    };
 
     handleLogIn = event => {
 
-    }
+    };
+
+    handleVerifyOtp = () => {
+        this.setState({ otp: true })
+    };
+
     handleSignUp = event => {
         event.preventDefault();
 
@@ -508,22 +521,22 @@ class SignExpanded extends Component {
         });
 
         this.setState({ submitting: true, submitMessage: 'Verifying account...' });
-    }
+    };
 
 
     handleAccomo = ({ target }) => {
         const user = { accomodation: target.checked - 0 };
         this.setState({ accomodation: user.accomodation, disabled: false })
-    }
+    };
 
 
     handleChange = event => {
         this.setState({ gender: event.target.value, disabled: false })
-    }
+    };
 
     handleId = id => {
         this.props.onSignUp(id);
-    }
+    };
 
     renderLoadingOrOtp() {
         if (this.state.submitting) {
@@ -543,6 +556,36 @@ class SignExpanded extends Component {
 
 
 	render () {
+
+        if (this.state.otp) {
+            return (
+            <Motion style={{
+                flexVal: spring(this.state.flexState ? 8 : 1)
+            }} onRest={this.isFinished}>
+                {({flexVal}) =>
+                    <div className={this.props.type==='signIn' ? 'signInExpanded' : 'signUpExpanded'} style={{
+                        flexGrow: `${flexVal}`
+                    }}>
+                        <Motion style={{
+                            opacity: spring(this.state.flexState ? 1 : 0,{stiffness: 300, damping: 17}),
+                            y: spring(this.state.flexState ? 0 : 50, {stiffness: 100, damping: 17})
+                        }} >
+                            {({opacity, y}) =>
+                                <form className='logForm' style={{
+                                    WebkitTransform: `translate3d(0, ${y}px, 0)`,
+                                    transform: `translate3d(0, ${y}px, 0)`,
+                                    opacity: `${opacity}`
+                                }}>
+                                    <VerifyOtpForm onSuccess={() => this.setState({ otp: false })} mobile={this.mobileNumber.current.get()} />
+                                </form>
+                            }
+                        </Motion>
+                    </div>
+                }
+            </Motion>
+        )
+        }
+
 		return (
 			<Motion style={{
 				flexVal: spring(this.state.flexState ? 8 : 1)

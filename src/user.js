@@ -114,10 +114,9 @@ window._user = {
       .then(data => data.json())
       .then(res => {
         if (res.ACK !== 'SUCCESS') {
-          config.onFailed(res);
-          return;
+            config.onFailed(res);
+            return;
         }
-
         config.onSuccess(res);
       })
       .catch(err => {
@@ -126,21 +125,25 @@ window._user = {
       })
   },
 
-  verifyOtp(otp, email, config) {
+  verifyOtp(otp, mobile, config) {
     fetch(api.url + 'user/verify', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
+          'Accept' : 'application/json',
       },
-      body: JSON.stringify({ otp, email }),
+      body: JSON.stringify({ otp, mobile }),
     })
       .then(data => data.json())
       .then(res => {
+          console.log(res);
+          setTimeout(1000);
         if (res.ACK !== 'SUCCESS') {
           config.onFailed(res);
           return;
         }
-
+        console.log(res.firstName);
+        console.log(res.lastName);
         this.loginLocal(res);
         config.onSuccess(res.pecfestId);
       })
@@ -161,8 +164,8 @@ window._user = {
       .then(data => data.json())
       .then(json => {
         if (json.ACK !== 'SUCCESS') {
-          config.onFailed()
-          return
+          config.onFailed();
+          return;
         }
 
         config.onSuccess(json.verified)
