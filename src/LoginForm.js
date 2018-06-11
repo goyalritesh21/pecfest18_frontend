@@ -9,7 +9,7 @@ import 'md5';
 class ForgotIDForm extends Component {
     state = {
         status: '',
-        email: '',
+        username: '',
         done: false,
         forgotBack: false
     }
@@ -18,7 +18,7 @@ class ForgotIDForm extends Component {
         event.stopPropagation();
         event.preventDefault();
         this.setState({ status: <Loader color="rgba(0, 0, 0, 0.5)" /> });
-        user.sendIDToEmail(this.state.email, {
+        user.sendIDToEmail(this.state.username, {
             onSuccess: (res) => {
                 this.setState({status: res.message, done: true })
                 setTimeout(this.props.onSuccess, 1000);
@@ -30,7 +30,7 @@ class ForgotIDForm extends Component {
     }
 
     handleDone = ({ target }) => {
-        this.setState({ email: target.value })
+        this.setState({ username: target.value })
     }
 
     handleForgotBack = ({ target}) => {
@@ -47,7 +47,7 @@ class ForgotIDForm extends Component {
                         {this.state.status}
                     </div>
                     <div className="Input">
-                        <GetEmail ref="email" done={this.handleDone}/>
+                        <GetEmail ref="username" done={this.handleDone}/>
                     </div>
                 </div>
                 <div className={'submitButtonLogin'}>
@@ -61,36 +61,38 @@ class ForgotIDForm extends Component {
 
 const emailre = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+const mobre = /[0-9]{10,10}/;
+
 class GetEmail extends Component {
     state = {
-        email: '',
+        username: '',
         error: true,
     }
 
     get() {
-        return this.state.email;
+        return this.state.username;
     }
 
     handleNext = ({ target }) => {
-        this.setState({ error: !target.value.match(emailre)})
-        this.props.done({ email: this.state.email ,
+        this.setState({ error: !(target.value.match(emailre) || target.value.match(emailre))})
+        this.props.done({ username: this.state.email ,
             error: !target.value.match(emailre)});
 
     }
 
     handleChange = ({ target }) => {
-        this.setState({ email: target.value });
+        this.setState({ username: target.value });
     }
 
     render() {
         return (
             <input
-                id="emailId"
-                type="email"
+                id="username"
+                type="text"
                 autoComplete = "off"
                 required
-                name = "emailId"
-                placeholder="example@example.com"
+                name = "username"
+                placeholder="username"
                 onChange={this.handleChange}
                 on/>
         )
@@ -145,14 +147,14 @@ export default class LoginForm extends Component {
     constructor(props){
         super(props);
         this.state = {
-            emailId: '',
+            username: '',
             pwd: '',
             error: false,
             loggingin: false,
             done: false,
             forgot: false,
         };
-        this.emailId = React.createRef();
+        this.username = React.createRef();
         this.password = React.createRef();
 
     }
@@ -172,9 +174,9 @@ export default class LoginForm extends Component {
     }
 
     handleClick = () => {
-        this.setState({emailId: document.getElementById('emailId').value, pwd: md5(document.getElementById('password').value)});
+        this.setState({username: document.getElementById('username').value, pwd: md5(document.getElementById('password').value)});
         const newUser = {
-            email: this.emailId.current.get(),
+            username: this.username.current.get(),
             password : md5(this.password.current.get())
         }
         this.setState({ user: newUser } );
@@ -210,7 +212,7 @@ export default class LoginForm extends Component {
                 <h2>SIGN IN</h2>
                 <div>
                     <div className="Input">
-                        <GetEmail ref={this.emailId} done={this.handleDone}/>
+                        <GetEmail ref={this.username} done={this.handleDone}/>
                     </div>
                     <div className="Input">
                         <GetPassword ref={this.password} done={this.handleDones}/>
