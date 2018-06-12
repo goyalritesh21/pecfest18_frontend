@@ -27,15 +27,15 @@ class ForgotIDForm extends Component {
                 this.setState({ status: res.message })
             }
         })
-    }
+    };
 
     handleDone = ({ target }) => {
         this.setState({ username: target.value })
-    }
+    };
 
     handleForgotBack = ({ target}) => {
         this.setState.forgotBack = true
-    }
+    };
 
     render() {
         return (<div>
@@ -105,7 +105,7 @@ class GetPassword extends Component {
     state = {
         pwd : '',
         error: true,
-    }
+    };
 
     get() {
         return this.state.pwd;
@@ -114,7 +114,7 @@ class GetPassword extends Component {
     handleNext = ( { target }) => {
         this.setState({ error: !target.value.match(pwdre)});
         this.props.done({ pwd: this.state.pwd });
-    }
+    };
 
 
     isValid() {
@@ -123,7 +123,7 @@ class GetPassword extends Component {
 
     handleChange = ({ target }) => {
         this.setState({ pwd: target.value });
-    }
+    };
 
     render() {
         return (
@@ -162,23 +162,23 @@ export default class LoginForm extends Component {
     handleDone = (prop) => {
         const user = Object.assign({}, this.state.user, prop);
         this.setState({ user, disabled: false });
-    }
+    };
 
     handleFailed = (emailId) => {
         this.setState({ error: true, loggingin: false });
-    }
+    };
 
     handleSuccess = (emailId) => {
         this.setState({ error: false, loggingin: true, done: true });
-        //this.props.onLogin(emailId);
-    }
+        this.props.onLogin(emailId);
+    };
 
     handleClick = () => {
         this.setState({username: document.getElementById('username').value, pwd: md5(document.getElementById('password').value)});
         const newUser = {
             username: this.username.current.get(),
             password : md5(this.password.current.get())
-        }
+        };
         this.setState({ user: newUser } );
         user.login(newUser, {
             onSuccess: this.handleSuccess,
@@ -186,11 +186,11 @@ export default class LoginForm extends Component {
         });
 
         this.setState({ loggingin: true })
-    }
+    };
 
     handleOnForgotPassword = () => {
         this.setState({ forgot: true })
-    }
+    };
 
     componentDidMount() {
 
@@ -209,6 +209,7 @@ export default class LoginForm extends Component {
 
         return (
             <div>
+                <form>
                 <h2>SIGN IN</h2>
                 <div>
                     <div className="Input">
@@ -226,6 +227,7 @@ export default class LoginForm extends Component {
                             password?</a>
                     </div>
                 </div>
+                </form>
             </div>
 
         );

@@ -114,9 +114,11 @@ window._user = {
       .then(data => data.json())
       .then(res => {
         if (res.ACK !== 'SUCCESS') {
+            setTimeout(1000);
             config.onFailed(res);
             return;
         }
+          setTimeout(1000);
         config.onSuccess(res);
       })
       .catch(err => {
