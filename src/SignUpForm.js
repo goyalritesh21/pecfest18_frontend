@@ -309,22 +309,48 @@ class GetPassword extends Component {
 }
 
 class GetGender extends Component {
+    state ={
+        gender:'Male',
+    };
+
+    get(){
+        return this.state.gender;
+    }
+
+    onChange = ({ event }) => {
+        this.setState({gender : document.getElementById('genderSelect').value});
+    };
+
     render() {
         return (
             <div className="InputLabel">
-                <label><input type="radio" name="gender" value="male" required/> Male</label>
-                <label><input type="radio" name="gender" value="female" required/> Female</label>
-                <label><input type="radio" name="gender" value="other" required/> Other</label>
+                <label><select id ="genderSelect" name="gender" onChange={this.onChange}>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select> Gender</label>
             </div>
         )
     }
 }
 
 class GetAccomodationDetails extends Component {
+    state = {
+        accomodation : '0',
+    }
+
+    get() {
+        return this.state.accomodation;
+    }
+
+    onChange = ({ event }) => {
+        this.setState({accomodation : document.getElementById('accomodation').value});
+    }
+
     render() {
         return (
             <div class="InputLabel">
-                <label><input type="checkbox" name="accomodation" value="yes"/>  Accomodation? </label>
+                <label><input id={'accomodation'}  type="checkbox" name="accomodation" value='1' onChange={this.onChange}/>  Accomodation? </label>
             </div>
 
         )
@@ -431,12 +457,12 @@ export default class SignUpForm extends Component {
             email: this.email.current.get(),
             mobile: this.mobileNumber.current.get(),
             college: this.college.current.get(),
-            accomodation: this.state.accomodation,
-            gender: this.state.gender,
+            accomodation: this.accomodation.current.get(),
+            gender: this.gender.current.get(),
             password : md5(this.password.current.get())
         }
         this.setState({ user: newUser } );
-
+        console.log(newUser);
 
         user.signUp(newUser, {
             onSuccess: (res) => {
