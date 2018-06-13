@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import NavigationDialog from './NavigationDialog';
 import { withRouter } from 'react-router-dom';
-import Navbar from './Navbar';
+//import Navbar from './Navbar';
+import Nav from './Nav';
 
 import './NavigationButton.css';
 
@@ -51,7 +52,7 @@ class NavigationButton extends Component {
 								this.state.navigation ? <NavigationDialog onTransition={()=>{}} onClose={this.handleClose} /> : ""
 							}
 						</div> :
-						<Navbar />
+						<Nav />
 				}
 			</div>
 		)
