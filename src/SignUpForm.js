@@ -6,7 +6,8 @@ import {MdArrowForward} from 'react-icons/lib/md';
 import 'md5';
 import './SignUpOrLoginForm.css';
 import './SignUpForm.css';
-
+import { Redirect } from 'react-router-dom';
+import dashboard from './dashboard';
 class VerifyOtpForm extends Component {
     state = {
         status: '',
@@ -46,6 +47,7 @@ class VerifyOtpForm extends Component {
                 <h2>Verify OTP</h2>
                 <form className={"SignUpForm"} onSubmit={this.handleNext}>
                     <div className="SignUpElement">
+
                         <p>OTP sent on your registered mobile number.</p>
                         <div className="StatusMessage">
                             {this.state.status}
@@ -390,7 +392,7 @@ export default class SignUpForm extends Component {
             accomodation: 0,
 			message:'',
             otpForm: false,
-
+            signIn: false,
         };
         this.fName = React.createRef();
         this.lName = React.createRef();
@@ -426,11 +428,11 @@ export default class SignUpForm extends Component {
 
         const errors = [];
         if (!this.fName.current.isValid()) {
-            errors.push('firstName');
+            errors.push('First Name');
         }
 
         if (!this.lName.current.isValid()) {
-            errors.push('lastName');
+            errors.push('Last Name');
         }
 
         if (!this.email.current.get().match(emailre)) {
@@ -460,9 +462,8 @@ export default class SignUpForm extends Component {
             accomodation: this.accomodation.current.get(),
             gender: this.gender.current.get(),
             password : md5(this.password.current.get())
-        }
+        };
         this.setState({ user: newUser } );
-        console.log(newUser);
 
         user.signUp(newUser, {
             onSuccess: (res) => {
@@ -472,26 +473,29 @@ export default class SignUpForm extends Component {
                         if (verified) {
                             // send user to the login page
                             //this.props.onContinueToLogin()
+                            this.setState({ signIn: true});
+
                         } else {
                             this.setState({ submitting: false, otp: true, pecfestId: res.pecfestId, otpForm: true });
+
                         }
                     },
                     onFailed: (err) => {
-                        this.setState({ submitting: false, error: true, message: err.message || 'Unknown error occurred.' });
+                        this.setState({ submitting: false, error: true, message: err.message || 'Unknown error occured.' });
                     }
                 })
-                this.setState({ submitting: false, error: true,  disabled: true, message: 'Unknown error has occurred.'})
             },
             onFailed: (err) => {
                 if (typeof err.ACK !== 'undefined') {
                     if (err.ACK === 'ALREADY') {
-                        this.setState({ message: 'Account already exists. Verifying...' })
+                        this.setState({ message: 'Account already exists. Verifying...' });
                         user.checkVerified(this.state.user.mobile, {
                             onSuccess: verified => {
                                 console.log(verified);
                                 if (verified) {
                                     // send user to the login page
                                     //this.props.onContinueToLogin()
+                                    this.setState({ signIn: true});
                                 } else {
                                     this.setState({ submitting: false, otp: true, otpForm: true })
                                 }
@@ -502,7 +506,6 @@ export default class SignUpForm extends Component {
                         })
                     }
                 }
-                this.setState({ submitting: false, error: true,  disabled: true, message: err.message || 'Some unknown error has occurred. 2'})
             }
         });
 
@@ -548,11 +551,14 @@ export default class SignUpForm extends Component {
             )
         }
 
+        if(this.state.signIn){
+            return <Redirect push to="/dashboard" exact component={ () => <dashboard user={user} login={true}/>} />
+        }
+
 		return (
             <div>
-                <h2>SIGN UP</h2
-                >
-				<p>{this.state.message}</p>
+                <h2>SIGN UP</h2>
+                <p>{this.state.message}</p>
 				<form onSubmit={this.handleSignUp} autoComplete={false}>
                 <div className="Input">
                     <GetFirstName ref={this.fName} done={this.handleDone}/>
