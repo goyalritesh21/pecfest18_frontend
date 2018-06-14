@@ -43,15 +43,15 @@ class NavigationButton extends Component {
 		return (
 			<div className="Navigation-wrapper">
 				{
-					this.state.compact ?
-						<div>
-							<button className="Button NavigationButton" onClick={this.handleClick}>
-								<i className={"fa fa-" + (this.state.navigation ? 'times' : 'bars')} />
-							</button>
-							{
-								this.state.navigation ? <NavigationDialog onTransition={()=>{}} onClose={this.handleClose} /> : ""
-							}
-						</div> :
+					// this.state.compact ?
+					// 	<div>
+					// 		<button className="Button NavigationButton" onClick={this.handleClick}>
+					// 			<i className={"fa fa-" + (this.state.navigation ? 'times' : 'bars')} />
+					// 		</button>
+					// 		{
+					// 			this.state.navigation ? <NavigationDialog onTransition={()=>{}} onClose={this.handleClose} /> : ""
+					// 		}
+					// 	</div> :
 						<Nav />
 				}
 			</div>
