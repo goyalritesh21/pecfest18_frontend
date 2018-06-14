@@ -21,32 +21,32 @@ class Nav extends Component {
                     <nav className="top-right open">
                         <a></a>
                         <div>
-                            <a href="pecfest2016" className="disc l0">
+                            <a href="../pecfest2016" className="disc l0">
                                 <div>Pecfest 2017</div>
                             </a>
                         </div>
                         <div >
-                            <a href = "activities" className="disc l1">
+                            <a href = "../activities" className="disc l1">
                                 <div>Events</div>
                             </a>
                         </div>
                         <div>
-                            <a href = "sponsors" className="disc l2">
+                            <a href = "../sponsors" className="disc l2">
                                 <div>Sponsors</div>
                             </a>
                         </div>
                         <div>
-                            <a href = "team" className="disc l3">
+                            <a href = "../Team" className="disc l3">
                                 <div>Team</div>
                             </a>
                         </div>
                         <div>
-                            <a href = "hospitality" className="disc l4">
+                            <a href = "../hospitality" className="disc l4">
                                 <div>Hospitality</div>
                             </a>
                         </div>
                         <div>
-                            <a href = "social"  className="disc l5">
+                            <a href = "../social"  className="disc l5">
                                 <div>Social</div>
                             </a>
                         </div>
