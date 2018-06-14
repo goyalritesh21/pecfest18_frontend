@@ -13,7 +13,9 @@ class Dashboard extends Component{
             <div id="main-div">
                 <div className="grid-container">
                     <div className="grid-item left-side center">
-                        <h2 style={{paddingTop: '2em'}}>Notifications</h2>
+                        <h2 style={{paddingTop: '0em'}}>Notifications</h2>
+                        <div className="notification-window notifs">
+
                         <Notifications
                             event="Event"
                             timeofupdate="Time Of Update"
@@ -25,13 +27,28 @@ class Dashboard extends Component{
                             event="Battle of the Bands"
                             timeofupdate="12:04pm"
                             update="The venue for the event has been changed from L-11 to the Auditorium"/>
+                        <Notifications
+                            event="Battle of the Bands"
+                            timeofupdate="12:04pm"
+                            update="The venue for the event has been changed from L-11 to the Auditorium"/>
+                        <Notifications
+                            event="Battle of the Bands"
+                            timeofupdate="12:04pm"
+                            update="The venue for the event has been changed from L-11 to the Auditorium"/>
+                        <Notifications
+                            event="Battle of the Bands"
+                            timeofupdate="12:04pm"
+                            update="The venue for the event has been changed from L-11 to the Auditorium"/>
+                        <Notifications
+                            event="Battle of the Bands"
+                            timeofupdate="12:04pm"
+                            update="The venue for the event has been changed from L-11 to the Auditorium"/>
 
 
                         {/*<hr className="border2" style={{borderTop: '3px solid #e22947', width: '50%'}}/>*/}
-
-                        <h2 style={{paddingTop: '2em'}}>Events Registered for:</h2>
-
-
+                        </div>
+                        <h2 style={{paddingTop: '0em'}}>Registered Events</h2>
+                        <div className="registered-events notifs">
                         {/*Heading may be removed for each field, if required*/}
                         {/* can remove one or more of the following fields if we plan on giving
                          linking to event page through it's name*/}
@@ -40,7 +57,7 @@ class Dashboard extends Component{
                             date="Date"
                             venue="Venue"
                             time="Time of the Event"
-                            timeofreg="Time of Registration"
+                            timeofreg="Registration Time"
                         />
                         {/*<hr className="border1" style={{borderTop: '3px solid #833fb2', width: '50%',align:'left',size:'80px'}}/>*/}
 
@@ -51,7 +68,45 @@ class Dashboard extends Component{
                             time="9am-9 pm"
                             timeofreg="8:40am"
                         />
+
+                        <Event_registrations
+                            event="hackathon"
+                            date="28 October 2017"
+                            venue="New academic block"
+                            time="9am-9 pm"
+                            timeofreg="8:40am"
+                        />
+                        <Event_registrations
+                            event="hackathon"
+                            date="28 October 2017"
+                            venue="New academic block"
+                            time="9am-9 pm"
+                            timeofreg="8:40am"
+                        />
+                        <Event_registrations
+                            event="hackathon"
+                            date="28 October 2017"
+                            venue="New academic block"
+                            time="9am-9 pm"
+                            timeofreg="8:40am"
+                        />
+                        <Event_registrations
+                            event="hackathon"
+                            date="28 October 2017"
+                            venue="New academic block"
+                            time="9am-9 pm"
+                            timeofreg="8:40am"
+                        />
+                        <Event_registrations
+                            event="hackathon"
+                            date="28 October 2017"
+                            venue="New academic block"
+                            time="9am-9 pm"
+                            timeofreg="8:40am"
+                        />
+                        <br/><br/><br/><br/><br/>
                         {/*CHECK if there are spl data tyoes for date and time*/}
+                    </div>
                     </div>
                     <div className="grid-item right-side">
                         <div className="center">
@@ -65,8 +120,7 @@ class Dashboard extends Component{
                         </div>
                         <div className="remaining-info-user">
                             <hr style={{borderTop: '3px solid'}}/>
-                            <p>Participant, Pecfest 2018</p>
-
+                            <h3 style={{color:"#27221F"}}>Participant</h3>
                             <br /><br />
                             <div className="grid-container-card">
                                 <div className="grid-item">
