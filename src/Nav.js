@@ -19,11 +19,12 @@ class Nav extends Component {
             this.state.navigation ?
                 <div>
                     <nav className="top-right open">
-                        <a>
-                        </a>
-                        <a href="pecfest2016" className="disc l0">
-                            <div>Pecfest 2017</div>
-                        </a>
+                        <a></a>
+                        <div>
+                            <a href="pecfest2016" className="disc l0">
+                                <div>Pecfest 2017</div>
+                            </a>
+                        </div>
                         <div >
                             <a href = "activities" className="disc l1">
                                 <div>Events</div>
@@ -34,19 +35,23 @@ class Nav extends Component {
                                 <div>Sponsors</div>
                             </a>
                         </div>
-                        <a href = "team" className="disc l3">
-                            <div>Team</div>
-                        </a>
-                        <a href = "hospitality" className="disc l4">
-                            <div>Hospitality</div>
-                        </a>
+                        <div>
+                            <a href = "team" className="disc l3">
+                                <div>Team</div>
+                            </a>
+                        </div>
+                        <div>
+                            <a href = "hospitality" className="disc l4">
+                                <div>Hospitality</div>
+                            </a>
+                        </div>
                         <div>
                             <a href = "social"  className="disc l5">
                                 <div>Social</div>
                             </a>
                         </div>
-                        <div href = ""  className="disc l6">
-                            <a >
+                        <div>
+                            <a href = "/"  className="disc l6">
                                 <div>Home</div>
                             </a>
                         </div>
