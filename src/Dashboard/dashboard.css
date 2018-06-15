@@ -2,18 +2,18 @@
 .grid-event{
     display:inline-grid;
     grid-template-columns:180px 150px 180px 150px 150px;
-    padding: 10px;
+    padding: 5px;
     align-content: center;
     background-color: #E9967A;
     grid-column-end: initial;
 
 }
 .grid-item{
-    padding:20px;
+    padding:10px;
     background-color: #FAEBD7;
 }
 .grid-item3{
-    padding: 20px;
+    padding: 10px;
     background-color: #FAEBD7;
     grid-column: 3/6;
 }

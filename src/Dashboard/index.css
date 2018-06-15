@@ -1,14 +1,20 @@
 .right-side{
     /*grid-column-start: 5;
     grid-column-end : 13;*/
-    grid-column: 13 / 13;		/*start at 5th col line and span 8 cols*/
+    grid-column: 9 / 13;		/*start at 5th col line and span 8 cols*/
     background-color:#27221F/*#ff3067/*e5e520/*e0f711*//*f4e72c*//*27221F*/;
-    color:white;
-    height: 100%;
+    color:#27221F;
+    overflow-y: scroll;
 }
 
 .left-side{
-    grid-column: 1 / 13 ;		/* start on line 1 and end on line 5 */
+    grid-column: 1 / 9; /* start on line 1 and end on line 5 */
+    overflow-y: scroll;
+    height: 700px;
+}
+
+.notifs{
+    overflow-y: scroll;
 }
 
 .center{
@@ -16,11 +22,11 @@
 }
 
 .notification-window{
-    height:50%;
+    height:35%;
 }
 
 .registeredEvents{
-    height:50%;
+    height:35%;
 }
 
 
@@ -77,4 +83,17 @@ specify the width of the 4 columns, or "auto" if all
     padding-bottom: .5em;
     background-color:white/*#00cdb6/*f71c10/*f73b11*//*40a814*//*42f4b3*/;
     color: #27221F;
+}
+
+::-webkit-scrollbar {
+    width: .3em;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
 }
