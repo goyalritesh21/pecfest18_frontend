@@ -7,7 +7,7 @@ import 'md5';
 import './SignUpOrLoginForm.css';
 import './SignUpForm.css';
 import { Redirect } from 'react-router-dom';
-import dashboard from './dashboard';
+import dashboard from './Dashboard';
 class VerifyOtpForm extends Component {
     state = {
         status: '',

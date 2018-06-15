@@ -6,7 +6,7 @@ import {MdArrowForward} from 'react-icons/lib/md';
 import { Redirect } from 'react-router-dom';
 import './SignUpForm.css';
 import 'md5';
-import dashboard from './dashboard';
+import Dashboard from './Dashboard';
 class ForgotIDForm extends Component {
     state = {
         status: '',
@@ -206,7 +206,7 @@ export default class LoginForm extends Component {
         }
 
         if(this.state.loggingin && this.state.done){
-            return <Redirect push to="/dashboard" exact component={ () => <dashboard user={user} login={true}/>} />
+            return <Redirect push to="/dashboard" exact component={ () => <Dashboard user={user} login={true}/>} />
         }
 
         if (this.state.forgot) {
