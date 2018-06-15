@@ -7,7 +7,7 @@ import 'md5';
 import './SignUpOrLoginForm.css';
 import './SignUpForm.css';
 import { Redirect } from 'react-router-dom';
-import dashboard from './dashboard';
+import Dashboard from './Dashboard/index';
 class VerifyOtpForm extends Component {
     state = {
         status: '',
@@ -552,7 +552,7 @@ export default class SignUpForm extends Component {
         }
 
         if(this.state.signIn){
-            return <Redirect push to="/dashboard" exact component={ () => <dashboard user={user} login={true}/>} />
+            return <Redirect push to="/dashboard" exact component={ () => <Dashboard user={user} login={true}/>} />
         }
 
 		return (
