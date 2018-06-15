@@ -3,9 +3,10 @@ import Loader from './Loader';
 import user from './user';
 import './SignUpOrLoginForm.css';
 import {MdArrowForward} from 'react-icons/lib/md';
+import { Redirect } from 'react-router-dom';
 import './SignUpForm.css';
 import 'md5';
-
+import dashboard from './dashboard';
 class ForgotIDForm extends Component {
     state = {
         status: '',
@@ -170,6 +171,7 @@ export default class LoginForm extends Component {
 
     handleSuccess = (emailId) => {
         this.setState({ error: false, loggingin: true, done: true });
+        this.history.replace('/');
         this.props.onLogin(emailId);
     };
 
@@ -201,6 +203,10 @@ export default class LoginForm extends Component {
 
         if (this.state.error) {
             style.color = 'red';
+        }
+
+        if(this.state.loggingin && this.state.done){
+            return <Redirect push to="/dashboard" exact component={ () => <dashboard user={user} login={true}/>} />
         }
 
         if (this.state.forgot) {
