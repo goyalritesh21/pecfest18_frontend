@@ -1,20 +1,70 @@
+:root{
+    --main_color : #27221F;
+}
+
+@media screen and (min-width: 800px){
 .right-side{
     /*grid-column-start: 5;
     grid-column-end : 13;*/
     grid-column: 9 / 13;		/*start at 5th col line and span 8 cols*/
-    background-color:#27221F/*#ff3067/*e5e520/*e0f711*//*f4e72c*//*27221F*/;
-    color:#27221F;
+    /*background-color:#27221F/*#ff3067/*e5e520/*e0f711*//*f4e72c*//*27221F*/;
+    color:white;
+    background-color: black;
     overflow-y: scroll;
+}
+}
+
+@media screen and (max-width: 800px)
+{
+    .right-side{
+        display: none;
+    }
+    .left-side{
+    grid-column: 1 / 13; /* start on line 1 and end on line 5 */
+    overflow: scroll;
+    /*background-color: #325b2f/*#519b4f*/;
+    color : white;
+    /*height: 700px;*/
+    }
 }
 
 .left-side{
     grid-column: 1 / 9; /* start on line 1 and end on line 5 */
-    overflow-y: scroll;
-    height: 700px;
+    overflow: hidden;
+    /*background-color: #325b2f/*#519b4f*/;
+    color : white;
+    height: 650px;
+}
+
+.button{
+    align:left;
+    /*border-radius: 6%;*/
+    font-size:11px;
+}
+
+.button1{
+    background-color:var(--main_color)/*#5f9bfc*/;
+    color :white;
+}
+
+.button2{
+    background-color:var(--main_color)/*#009925*/;
+    color :white;
+}
+
+.header{
+    background-color: var(--main_color);
+    color : white;
+    font-size:18px;
+    padding-top: .3em;
+    
 }
 
 .notifs{
-    overflow-y: scroll;
+    height: 75%;
+    overflow: scroll;
+    background-color: white;
+    color : black;
 }
 
 .center{
@@ -22,16 +72,23 @@
 }
 
 .notification-window{
-    height:35%;
+    height:100%;
+    /*background-color: white;*/
 }
 
 .registeredEvents{
-    height:35%;
+    height:100%;
+    /*background-color: white;*/
 }
 
+#main-div
+{
+    max-height: 1200px;
+}
 
 .grid-item{
-    padding: 20px;
+    /*padding: 10px;*/
+    /*border:solid;*/
 }
 
 .remaining-info-user{
@@ -57,7 +114,7 @@ specify the width of the 4 columns, or "auto" if all
     display: grid;
     grid-gap: 10px;
     grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto ;
-    padding: 10px;
+    padding: 0px;
 }
 
 .grid-container-card{
@@ -82,18 +139,26 @@ specify the width of the 4 columns, or "auto" if all
     padding-top : .1em;
     padding-bottom: .5em;
     background-color:white/*#00cdb6/*f71c10/*f73b11*//*40a814*//*42f4b3*/;
-    color: #27221F;
+    color: var(--main_color);
 }
 
 ::-webkit-scrollbar {
-    width: .3em;
+    width: 0.3em;
 }
 
+@media screen and(max-width: 800px){
 ::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 }
+}
 
 ::-webkit-scrollbar-thumb {
-    background-color: darkgrey;
+    background-color: var(--main_color);
     outline: 1px solid slategrey;
+}
+
+.headings{
+	margin: 0px;
+	color : black;
+	text-align: right;
 }
