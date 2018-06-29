@@ -14,7 +14,7 @@ class Dashboard extends Component{
         super(props);
         this.displayRegisteredEvents = this.displayRegisteredEvents.bind(this);
         this.displayNotifications = this.displayNotifications.bind(this);
-        this.state = {registeredEvents:true, data : null};
+        this.state = {registeredEvents:false, data : null};
         //this.getData();
     }
 
@@ -44,18 +44,22 @@ class Dashboard extends Component{
         if(registeredEvents)
         {
             result= <div id="reg" className="registeredEvents center">
+            <div id="buttons-id" style={{paddingTop:"1em"}}>
+                            <div className="button button1 button_after" onClick={this.displayRegisteredEvents} ontouchstart={this.displayRegisteredEvents}><a href="#"><h2>Registered Events</h2></a></div>
+                            <div className="button button2" onClick={this.displayNotifications} ontouchstart={this.displayNotifications}><a href="#"><h2>Notifications</h2></a></div>
+                        </div>
                        {/*<h2 className="headings">REGISTERED EVENTS</h2>*/}
-                       <div className="header">
+                       <div className="header _after">
                        <EventRegistrations
                             header="True"
                             event="Event"
                             date="Day"
                             venue="Venue"
                             time="Time"
-                            timeofreg="Registration Time"
+                            timeofreg="Reg Time"
                         />
                         </div>
-                        <div className="notifs">
+                        <div className="notifs _after">
                         <EventRegistrations
                             event="hackathon"
                             date="28 October 2017"
@@ -104,14 +108,18 @@ class Dashboard extends Component{
         else
         {
             result = <div id="notif" className="notification-window center">
+            <div id="buttons-id" style={{paddingTop:"1em"}}>
+                            <div className="button button1" onClick={this.displayRegisteredEvents} ontouchstart={this.displayRegisteredEvents}><a href="#"><h2>Registered Events</h2></a></div>
+                            <div className="button button2 button_after" onClick={this.displayNotifications} ontouchstart={this.displayNotifications}><a href="#"><h2>Notifications</h2></a></div>
+                        </div>
                        {/*<h2 className="headings">NOTIFICATIONS</h2>*/}
-                       <div className="header">
+                       <div className="header _after">
                        <Notifications 
                             event="Event"
-                            timeofupdate="Notification Title"
+                            timeofupdate="Title"
                             update="Details"/>
                             </div>
-                        <div className="notifs">
+                        <div className="notifs _after">
                         <Notifications
                             event="Battle of the Bands 1"
                             timeofupdate="12:04pm"
@@ -214,10 +222,6 @@ class Dashboard extends Component{
 
                 <div className="grid-container">
                     <div className="grid-item left-side">
-                        <div id="buttons-id">
-                            <button className="button button1" onClick={this.displayRegisteredEvents}><h2>Registered Events</h2></button>
-                            <button className="button button2" onClick={this.displayNotifications}><h2>Notifications</h2></button>
-                        </div>
                         {result}
                     </div>
 
