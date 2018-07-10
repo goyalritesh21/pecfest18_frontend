@@ -1,4 +1,4 @@
-import { api } from './eventdb';
+ import { api } from './eventdb';
 
 window._user = {
   currentUser: {
@@ -218,6 +218,8 @@ window._user = {
     return false;
   },
 }
+
+
 
 let user = window._user;
 

@@ -6,6 +6,9 @@ import './index.css';
 //import ProgressBar from './ProgressBar.js'
 import Event_registrations from './registeredEvents'
 import Notifications from "./notification";
+import getnotif from './getnotif'
+import getevent from './getevent'
+
 
 class Dashboard extends Component{
     render(){
@@ -15,16 +18,16 @@ class Dashboard extends Component{
                     <div className="grid-item left-side center">
                         <h2 style={{paddingTop: '2em'}}>Notifications</h2>
                         <Notifications
-                            event="Event"
-                            timeofupdate="Time Of Update"
-                            update="Update"/>
+                            // loop for all eventsfor i in (0, len(events):  address ach attribute with i th index of notifications array
+                            event={getnotif.notifications.event}
+                            timeofupdate={getnotif.notifications.time}
+                            update={getnotif.notifications.update} />
 
                         {/*<hr className="border1" style={{borderTop: '3px solid #833fb2', width: '50%',align:'left',size:'80px'}}/>*/}
-
                         <Notifications
                             event="Battle of the Bands"
                             timeofupdate="12:04pm"
-                            update="The venue for the event has been changed from L-11 to the Auditorium"/>
+                            update="The venue for the event has been changed from L-11 to the Auditorium.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."/>
 
 
                         {/*<hr className="border2" style={{borderTop: '3px solid #e22947', width: '50%'}}/>*/}
@@ -36,11 +39,12 @@ class Dashboard extends Component{
                         {/* can remove one or more of the following fields if we plan on giving
                          linking to event page through it's name*/}
                         <Event_registrations
-                            event="Event"
-                            date="Date"
-                            venue="Venue"
-                            time="Time of the Event"
-                            timeofreg="Time of Registration"
+                            //loop for all events and address each element with ith index of the array
+                            event={getevent.events_reglist.name}
+                            day={getevent.events_reglist.day}
+                            venue={getevent.events_reglist.venue}
+                            time={getevent.events_reglist.time}
+                            //timeofreg="Time of Registration"
                         />
                         {/*<hr className="border1" style={{borderTop: '3px solid #833fb2', width: '50%',align:'left',size:'80px'}}/>*/}
 
@@ -49,7 +53,7 @@ class Dashboard extends Component{
                             date="28 October 2017"
                             venue="New academic block"
                             time="9am-9 pm"
-                            timeofreg="8:40am"
+                            //timeofreg="8:40am"
                         />
                         {/*CHECK if there are spl data tyoes for date and time*/}
                     </div>
@@ -90,9 +94,14 @@ class Dashboard extends Component{
                         </div>
                     </div>
                 </div>
+                <Getnotif/>
             </div>
+
+
         );
+
     }
 }
+
 
 export default Dashboard;

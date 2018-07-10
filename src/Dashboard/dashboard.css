@@ -16,6 +16,9 @@
     padding: 20px;
     background-color: #FAEBD7;
     grid-column: 3/6;
+    overflow-wrap: break-word;
+    text-align: justify;
+    text-justify: inter-word;
 }
 {/*.grid-notif{
     dispay:grid;
