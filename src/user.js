@@ -1,5 +1,3 @@
-export default user;
-
 import { api } from './eventdb';
 
 window._user = {
