@@ -3,13 +3,14 @@ import Loader from './Loader';
 import user from './user';
 import './SignUpOrLoginForm.css';
 import {MdArrowForward} from 'react-icons/lib/md';
+import { Redirect } from 'react-router-dom';
 import './SignUpForm.css';
 import 'md5';
-
+import Dashboard from './Dashboard';
 class ForgotIDForm extends Component {
     state = {
         status: '',
-        email: '',
+        username: '',
         done: false,
         forgotBack: false
     }
@@ -18,7 +19,7 @@ class ForgotIDForm extends Component {
         event.stopPropagation();
         event.preventDefault();
         this.setState({ status: <Loader color="rgba(0, 0, 0, 0.5)" /> });
-        user.sendIDToEmail(this.state.email, {
+        user.sendIDToEmail(this.state.username, {
             onSuccess: (res) => {
                 this.setState({status: res.message, done: true })
                 setTimeout(this.props.onSuccess, 1000);
@@ -27,15 +28,15 @@ class ForgotIDForm extends Component {
                 this.setState({ status: res.message })
             }
         })
-    }
+    };
 
     handleDone = ({ target }) => {
-        this.setState({ email: target.value })
-    }
+        this.setState({ username: target.value })
+    };
 
     handleForgotBack = ({ target}) => {
         this.setState.forgotBack = true
-    }
+    };
 
     render() {
         return (<div>
@@ -47,7 +48,7 @@ class ForgotIDForm extends Component {
                         {this.state.status}
                     </div>
                     <div className="Input">
-                        <GetEmail ref="email" done={this.handleDone}/>
+                        <GetEmail ref="username" done={this.handleDone}/>
                     </div>
                 </div>
                 <div className={'submitButtonLogin'}>
@@ -61,36 +62,38 @@ class ForgotIDForm extends Component {
 
 const emailre = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+const mobre = /[0-9]{10,10}/;
+
 class GetEmail extends Component {
     state = {
-        email: '',
+        username: '',
         error: true,
     }
 
     get() {
-        return this.state.email;
+        return this.state.username;
     }
 
     handleNext = ({ target }) => {
-        this.setState({ error: !target.value.match(emailre)})
-        this.props.done({ email: this.state.email ,
+        this.setState({ error: !(target.value.match(emailre) || target.value.match(emailre))})
+        this.props.done({ username: this.state.email ,
             error: !target.value.match(emailre)});
 
     }
 
     handleChange = ({ target }) => {
-        this.setState({ email: target.value });
+        this.setState({ username: target.value });
     }
 
     render() {
         return (
             <input
-                id="emailId"
-                type="email"
+                id="username"
+                type="text"
                 autoComplete = "off"
                 required
-                name = "emailId"
-                placeholder="example@example.com"
+                name = "username"
+                placeholder="username"
                 onChange={this.handleChange}
                 on/>
         )
@@ -103,7 +106,7 @@ class GetPassword extends Component {
     state = {
         pwd : '',
         error: true,
-    }
+    };
 
     get() {
         return this.state.pwd;
@@ -112,7 +115,7 @@ class GetPassword extends Component {
     handleNext = ( { target }) => {
         this.setState({ error: !target.value.match(pwdre)});
         this.props.done({ pwd: this.state.pwd });
-    }
+    };
 
 
     isValid() {
@@ -121,7 +124,7 @@ class GetPassword extends Component {
 
     handleChange = ({ target }) => {
         this.setState({ pwd: target.value });
-    }
+    };
 
     render() {
         return (
@@ -145,14 +148,14 @@ export default class LoginForm extends Component {
     constructor(props){
         super(props);
         this.state = {
-            emailId: '',
+            username: '',
             pwd: '',
             error: false,
             loggingin: false,
             done: false,
             forgot: false,
         };
-        this.emailId = React.createRef();
+        this.username = React.createRef();
         this.password = React.createRef();
 
     }
@@ -160,23 +163,24 @@ export default class LoginForm extends Component {
     handleDone = (prop) => {
         const user = Object.assign({}, this.state.user, prop);
         this.setState({ user, disabled: false });
-    }
+    };
 
     handleFailed = (emailId) => {
         this.setState({ error: true, loggingin: false });
-    }
+    };
 
     handleSuccess = (emailId) => {
         this.setState({ error: false, loggingin: true, done: true });
-        //this.props.onLogin(emailId);
-    }
+        this.history.replace('/');
+        this.props.onLogin(emailId);
+    };
 
     handleClick = () => {
-        this.setState({emailId: document.getElementById('emailId').value, pwd: md5(document.getElementById('password').value)});
+        this.setState({username: document.getElementById('username').value, pwd: md5(document.getElementById('password').value)});
         const newUser = {
-            email: this.emailId.current.get(),
+            username: this.username.current.get(),
             password : md5(this.password.current.get())
-        }
+        };
         this.setState({ user: newUser } );
         user.login(newUser, {
             onSuccess: this.handleSuccess,
@@ -184,11 +188,11 @@ export default class LoginForm extends Component {
         });
 
         this.setState({ loggingin: true })
-    }
+    };
 
     handleOnForgotPassword = () => {
         this.setState({ forgot: true })
-    }
+    };
 
     componentDidMount() {
 
@@ -201,16 +205,21 @@ export default class LoginForm extends Component {
             style.color = 'red';
         }
 
+        if(this.state.loggingin && this.state.done){
+            return <Redirect push to="/dashboard" exact component={ () => <Dashboard user={user} login={true}/>} />
+        }
+
         if (this.state.forgot) {
             return <ForgotIDForm onSuccess={() => this.setState({ forgot: false })} />
         }
 
         return (
             <div>
+                <form>
                 <h2>SIGN IN</h2>
                 <div>
                     <div className="Input">
-                        <GetEmail ref={this.emailId} done={this.handleDone}/>
+                        <GetEmail ref={this.username} done={this.handleDone}/>
                     </div>
                     <div className="Input">
                         <GetPassword ref={this.password} done={this.handleDones}/>
@@ -224,6 +233,7 @@ export default class LoginForm extends Component {
                             password?</a>
                     </div>
                 </div>
+                </form>
             </div>
 
         );

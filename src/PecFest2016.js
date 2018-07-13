@@ -6,7 +6,7 @@ import './PecFest2016.css'
 var refreshboxElement, clicked;
 
 function start() {
-    var i = 0;
+    //var i = 0;
 
     if (typeof window.YT === 'undefined')
       var player;
@@ -31,12 +31,12 @@ function start() {
     });
 
     var events = document.getElementById("events");
-    var eve_count = 0;
+    //var eve_count = 0;
     var school = document.getElementById("schools");
-    var school_count = 0;
+    //var school_count = 0;
     var foot = document.getElementById("foot");
-    var foot_count = 0;
-    var complete = 0;
+    //var foot_count = 0;
+    //var complete = 0;
     var counts = {
       eve: 0,
       school: 0,

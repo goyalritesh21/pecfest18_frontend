@@ -1,3 +1,5 @@
+export default user;
+
 import { api } from './eventdb';
 
 window._user = {
@@ -114,10 +116,11 @@ window._user = {
       .then(data => data.json())
       .then(res => {
         if (res.ACK !== 'SUCCESS') {
-          config.onFailed(res);
-          return;
+            setTimeout(1000);
+            config.onFailed(res);
+            return;
         }
-
+          setTimeout(1000);
         config.onSuccess(res);
       })
       .catch(err => {
@@ -126,21 +129,25 @@ window._user = {
       })
   },
 
-  verifyOtp(otp, email, config) {
+  verifyOtp(otp, mobile, config) {
     fetch(api.url + 'user/verify', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
+          'Accept' : 'application/json',
       },
-      body: JSON.stringify({ otp, email }),
+      body: JSON.stringify({ otp, mobile }),
     })
       .then(data => data.json())
       .then(res => {
+          console.log(res);
+          setTimeout(1000);
         if (res.ACK !== 'SUCCESS') {
           config.onFailed(res);
           return;
         }
-
+        console.log(res.firstName);
+        console.log(res.lastName);
         this.loginLocal(res);
         config.onSuccess(res.pecfestId);
       })
@@ -161,8 +168,8 @@ window._user = {
       .then(data => data.json())
       .then(json => {
         if (json.ACK !== 'SUCCESS') {
-          config.onFailed()
-          return
+          config.onFailed();
+          return;
         }
 
         config.onSuccess(json.verified)
@@ -224,6 +231,18 @@ window._user = {
       }).catch(res => {
         config.onFailed(res);
       })
+  },
+  
+  getRegisteredEvents(config) {
+    fetch(api.url + 'user/registeredEvents?id=ADITCYP5ID')
+      .then(data => data.json())
+      .then(events => {
+        config.onSuccess(events);
+      })
+      .catch(err => {
+        console.log("This should not happened. If you are dev, then please report this immediately");
+        config.onFailed(err);
+      });
   },
 
   isRegistered(eventId) {
