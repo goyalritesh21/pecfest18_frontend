@@ -214,6 +214,18 @@ window._user = {
       })
   },
 
+  getRegisteredEvents(config) {
+    fetch(api.url + 'user/registeredEvents?id=ADITCYP5ID')
+      .then(data => data.json())
+      .then(events => {
+        config.onSuccess(events);
+      })
+      .catch(err => {
+        console.log("This should not happened. If you are dev, then please report this immediately");
+        config.onFailed(err);
+      });
+  },
+
   isRegistered(eventId) {
     return false;
   },

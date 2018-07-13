@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import blank_img from './blank.png'
-//import { Grid, Cell } from 'react-mdl';
 import './index.css';
-//import ProgressCircle from 'react-native-progress-circle';
-//import ProgressBar from './ProgressBar.js'
 import EventRegistrations from './registeredEvents'
 import Notifications from "./notification";
+import user from '../user';
 
 class Dashboard extends Component{
     
@@ -16,6 +14,17 @@ class Dashboard extends Component{
         this.displayNotifications = this.displayNotifications.bind(this);
         this.state = {registeredEvents:false, data : null};
         //this.getData();
+    }
+
+    componentDidMount() {
+        user.getRegisteredEvents({
+            onSuccess: events => {
+                this.setState({ events: events, registeredEvents:true });
+            },
+            onFailed: err => {
+                this.setState({ error: true });
+            }
+        })
     }
 
     getData()
@@ -38,8 +47,8 @@ class Dashboard extends Component{
     }
 
     render(){
-
         const registeredEvents = this.state.registeredEvents;
+        const events = !this.state.loading && !this.state.error ? this.state.events : [];
         let result;
         if(registeredEvents)
         {
@@ -48,62 +57,31 @@ class Dashboard extends Component{
                             <div className="button button1 button_after" onClick={this.displayRegisteredEvents} ontouchstart={this.displayRegisteredEvents}><a href="#"><h2>Registered Events</h2></a></div>
                             <div className="button button2" onClick={this.displayNotifications} ontouchstart={this.displayNotifications}><a href="#"><h2>Notifications</h2></a></div>
                         </div>
-                       {/*<h2 className="headings">REGISTERED EVENTS</h2>*/}
-                       <div className="header _after">
-                       <EventRegistrations
-                            header="True"
-                            event="Event"
-                            date="Day"
-                            venue="Venue"
-                            time="Time"
-                            timeofreg="Reg Time"
-                        />
+                        <div className="header _after">
+                            <EventRegistrations
+                                header="True"
+                                event="Event"
+                                date="Day"
+                                venue="Venue"
+                                time="Time"
+                                timeofreg="Reg Time"
+                            />
                         </div>
                         <div className="notifs _after">
-                        <EventRegistrations
-                            event="hackathon"
-                            date="28 October 2017"
-                            venue="New academic block"
-                            time="9am-9 pm"
-                            timeofreg="8:40am"
-                        />
-                            <EventRegistrations
-                                event="hackathon"
-                                date="28 October 2017"
-                                venue="New academic block"
-                                time="9am-9 pm"
-                                timeofreg="8:40am"
-                            />
-                            <EventRegistrations
-                                event="hackathon"
-                                date="28 October 2017"
-                                venue="New academic block"
-                                time="9am-9 pm"
-                                timeofreg="8:40am"
-                            />
-                            <EventRegistrations
-                                event="hackathon"
-                                date="28 October 2017"
-                                venue="New academic block"
-                                time="9am-9 pm"
-                                timeofreg="8:40am"
-                            />
-                            <EventRegistrations
-                                event="hackathon"
-                                date="28 October 2017"
-                                venue="New academic block"
-                                time="9am-9 pm"
-                                timeofreg="8:40am"
-                            />
-                            <EventRegistrations
-                                event="hackathon"
-                                date="28 October 2017"
-                                venue="New academic block"
-                                time="9am-9 pm"
-                                timeofreg="8:40am"
-                            />
-                            </div>
-	                </div>
+                        {
+                            events.map((event,i) => (
+                                <EventRegistrations
+                                    key={i}
+                                    event={event.name}
+                                    date={event.date}
+                                    venue={event.venue}
+                                    time={event.time}
+                                    timeofreg="8:40am"
+                                />
+                            ))
+                        }
+                        </div>
+            </div>
         }
         else
         {
