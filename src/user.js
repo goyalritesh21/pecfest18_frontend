@@ -68,7 +68,7 @@ window._user = {
       return setTimeout(() => config.onSuccess(this.currentUser));
     }
     if (this.loggedIn) {
-      this.login(this.currentUser.pecfestId, {onSuccess: () => {
+      this.getUserDetails(this.currentUser.pecfestId, {onSuccess: () => {
         config.onSuccess(this.currentUser);
         this.haveDetails = true;
       }, onFailed: config.onFailed });
@@ -78,17 +78,34 @@ window._user = {
     }
   },
 
+  getUserDetails(data, config) {
+    fetch(api.url + 'user/' + data)
+      .then(data => data.json())
+      .then(user => {
+        if (user.ACK !== 'SUCCESS') {
+          config.onFailed(user);
+          return;
+        }
+        config.onSuccess(user.pecfestId);
+      })
+      .catch(err => {
+        console.log(err);
+        console.log("This should not happen in log in");
+        config.onFailed(err);
+      })
+  },
+
   login(data, config) {
     fetch(api.url + 'user/signIn', {
         method: 'post',
         headers: {
             'Content-Type': 'application/json',
+            'Accept': 'application/json'
         },
         body: JSON.stringify(data),
-    })
-      .then(data => data.json())
+    }).then(data => data.json())
       .then(user => {
-        if (user.ACK !== "SUCCESS") {
+        if (user.ACK !== 'SUCCESS') {
           config.onFailed(user);
           return;
         }

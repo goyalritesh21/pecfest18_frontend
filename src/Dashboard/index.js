@@ -12,7 +12,7 @@ class Dashboard extends Component{
         super(props);
         this.displayRegisteredEvents = this.displayRegisteredEvents.bind(this);
         this.displayNotifications = this.displayNotifications.bind(this);
-        this.state = {registeredEvents:false, data : null};
+        this.state = {registeredEvents:false, data : null, loading:true};
         //this.getData();
     }
 
@@ -24,7 +24,20 @@ class Dashboard extends Component{
             onFailed: err => {
                 this.setState({ error: true });
             }
-        })
+        }),
+
+            user.getUser({
+                onSuccess: (user) => {
+                    this.setState({ user, loading: false });
+                },
+                onFailed: (err) => {
+                    if (err) {
+                        this.setState({ message: err.message || 'Failed to login', showMessage: true})
+                    } else {
+                        this.setState({ message: 'Failed to login', showMessage: true });
+                    }
+                }
+            });
     }
 
     getData()
@@ -47,6 +60,7 @@ class Dashboard extends Component{
     }
 
     render(){
+        const user = !this.state.loading ? this.state.user : {"pecfestId": "NULL"};
         const registeredEvents = this.state.registeredEvents;
         const events = !this.state.loading && !this.state.error ? this.state.events : [];
         let result;
@@ -213,7 +227,7 @@ class Dashboard extends Component{
                                  src={blank_img} alt=""
                             />
 
-                            <h2>Aakankasha Sharma</h2>
+                            <h2>{ user.pecfestId }</h2>
                         </div>
                         <div className="remaining-info-user">
                             <hr style={{borderTop: '3px solid'}}/>
