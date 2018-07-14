@@ -11,7 +11,7 @@ class Dashboard extends Component {
     super(props);
     this.displayRegisteredEvents = this.displayRegisteredEvents.bind(this);
     this.displayNotifications = this.displayNotifications.bind(this);
-    this.state = {registeredEvents: false, data: null, loading: true};
+    this.state = {registeredEvents: false, haveNotifs: false, data: null, loading: true};
     //this.getData();
   }
 
@@ -24,6 +24,15 @@ class Dashboard extends Component {
         this.setState({error: true});
       }
     }),
+
+      user.getNotifications({
+        onSuccess: notifs => {
+          this.setState({notifs: notifs, haveNotifs: true});
+        },
+        onFailed: err => {
+          this.setState({error: true});
+        }
+      }),
 
       user.getUser({
         onSuccess: (user) => {
@@ -59,6 +68,7 @@ class Dashboard extends Component {
     const user = !this.state.loading ? this.state.user : {"pecfestId": "NULL"};
     const registeredEvents = this.state.registeredEvents;
     const events = !this.state.loading && !this.state.error ? this.state.events : [];
+    const notifs = this.state.haveNotifs ? this.state.notifs : [];
     let result;
     if (registeredEvents) {
       result = <div id="reg" className="registeredEvents center">
@@ -110,104 +120,20 @@ class Dashboard extends Component {
         <div className="header _after">
           <Notifications
             event="Event"
-            timeofupdate="Title"
-            update="Details"/>
+            notificationTitle="Title"
+            notificationDetails="Details"/>
         </div>
         <div className="notifs _after">
-          <Notifications
-            event="Battle of the Bands 1"
-            timeofupdate="12:04pm"
-            update="The venue for the event has been changed from L-11 to the Auditorium"/>
-          <Notifications
-            event="Battle of the Bands 2"
-            timeofupdate="12:04pm"
-            update="The venue for the event has been changed from L-11 to the Auditorium"/>
-          <Notifications
-            event="Battle of the Bands 3"
-            timeofupdate="12:04pm"
-            update="The venue for the event has been changed from L-11 to the Auditorium"/>
-          <Notifications
-            event="Battle of the Bands 4"
-            timeofupdate="12:04pm"
-            update="The venue for the event has been changed from L-11 to the Auditorium"/>
-
-          <Notifications
-            event="Battle of the Bands 5"
-            timeofupdate="12:04pm"
-            update="The venue for the event has been changed from L-11 to the Auditorium"/>
-          <Notifications
-            event="Battle of the Bands 6"
-            timeofupdate="12:04pm"
-            update="The venue for the event has been changed from L-11 to the Auditorium"/>
-          <Notifications
-            event="Battle of the Bands 7"
-            timeofupdate="12:04pm"
-            update="The venue for the event has been changed from L-11 to the Auditorium"/>
-
-          <Notifications
-            event="Battle of the Bands 8"
-            timeofupdate="12:04pm"
-            update="The venue for the event has been changed from L-11 to the Auditorium"/>
-          <Notifications
-            event="Battle of the Bands 9"
-            timeofupdate="12:04pm"
-            update="The venue for the event has been changed from L-11 to the Auditorium"/>
-          <Notifications
-            event="Battle of the Bands 10"
-            timeofupdate="12:04pm"
-            update="The venue for the event has been changed from L-11 to the Auditorium"/>
-          <Notifications
-            event="Battle of the Bands 11"
-            timeofupdate="12:04pm"
-            update="The venue for the event has been changed from L-11 to the Auditorium"/>
-          <Notifications
-            event="Battle of the Bands 12"
-            timeofupdate="12:04pm"
-            update="The venue for the event has been changed from L-11 to the Auditorium"/>
-          <Notifications
-            event="Battle of the Bands 13"
-            timeofupdate="12:04pm"
-            update="The venue for the event has been changed from L-11 to the Auditorium"/>
-          <Notifications
-            event="Battle of the Bands 14"
-            timeofupdate="12:04pm"
-            update="The venue for the event has been changed from L-11 to the Auditorium"/>
-          <Notifications
-            event="Battle of the Bands 15"
-            timeofupdate="12:04pm"
-            update="The venue for the event has been changed from L-11 to the Auditorium"/>
-          <Notifications
-            event="Battle of the Bands 16"
-            timeofupdate="12:04pm"
-            update="The venue for the event has been changed from L-11 to the Auditorium"/>
-          <Notifications
-            event="Battle of the Bands 17"
-            timeofupdate="12:04pm"
-            update="The venue for the event has been changed from L-11 to the Auditorium"/>
-          <Notifications
-            event="Battle of the Bands 18"
-            timeofupdate="12:04pm"
-            update="The venue for the event has been changed from L-11 to the Auditorium"/>
-          <Notifications
-            event="Battle of the Bands 19"
-            timeofupdate="12:04pm"
-            update="The venue for the event has been changed from L-11 to the Auditorium"/>
-          <Notifications
-            event="Battle of the Bands 20"
-            timeofupdate="12:04pm"
-            update="The venue for the event has been changed from L-11 to the Auditorium"/>
-          <Notifications
-            event="Battle of the Bands 21"
-            timeofupdate="12:04pm"
-            update="The venue for the event has been changed from L-11 to the Auditorium"/>
-          <Notifications
-            event="Battle of the Bands 22"
-            timeofupdate="12:04pm"
-            update="The venue for the event has been changed from L-11 to the Auditorium"/>
-          <Notifications
-            event="Battle of the Bands 23"
-            timeofupdate="12:04pm"
-            update="The venue for the event has been changed from L-11 to the Auditorium"/>
+          {
+            notifs.map((notif, i) => (
+              <Notifications
+                key={i}
+                event={notif.eventName}
+                notificationTitle={notif.notificationTitle}
+                notificationDetails={notif.notificationDetails}
+              />
+            ))
+          }
         </div>
       </div>
     }

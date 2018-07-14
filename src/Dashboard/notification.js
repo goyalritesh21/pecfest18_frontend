@@ -7,8 +7,8 @@ class notification extends Component {
             <div>
                 <div className="grid-event">
                     <div className="grid-item">{this.props.event}</div>
-                    <div className="grid-item">{this.props.timeofupdate}</div>
-                    <div className="grid-item3">{this.props.update}</div>
+                    <div className="grid-item">{this.props.notificationTitle}</div>
+                    <div className="grid-item3">{this.props.notificationDetails}</div>
                 </div>
             </div>
 

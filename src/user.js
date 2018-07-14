@@ -262,6 +262,18 @@ window._user = {
       });
   },
 
+  getNotifications(config) {
+    fetch(api.url + 'user/notifications?id=ADITCYP5ID')
+      .then(data => data.json())
+      .then(notifs => {
+        config.onSuccess(notifs);
+      })
+      .catch(err => {
+        console.log("This should not happened. If you are dev, then please report this immediately");
+        config.onFailed(err);
+      });
+  },
+
   isRegistered(eventId) {
     return false;
   },
