@@ -11,7 +11,7 @@ function start() {
     if (typeof window.YT === 'undefined')
       var player;
       player = new window.YT.Player('muteYouTubeVideoPlayer', {
-        videoId: 'kMotFEvb0xc', // YouTube Video ID
+        videoId: 'y_uUB3CBqOc', // YouTube Video ID
         playerVars: {
           autoplay: 1,        // Auto-play the video on load
           controls: 0,        // Show pause/play buttons in player
@@ -25,7 +25,7 @@ function start() {
         },
         events: {
           onReady: function(e) {
-            e.target.mute();
+            // e.target.mute();
           }
         }
     });
@@ -84,7 +84,7 @@ export default class PecFest2016 extends Component {
       <div className="PecFest2016">
         <div id="muteYouTubeVideoPlayer"></div>
         <div className="filter" style={{ overflowX:'hidden', zIndex: 0 }}>
-          <div className="desc">
+          <div className="desc" style={{display:"none"}}>
             <div className="text" id="pecfest-title" style={{ top:'20%', left:'13%'}}>PECFEST 2016</div>
             <div className="text" id="events" style={{top:'45%', left:'13%', fontSize:'2.7vh'}}></div>
             <div className="text" id="schools" style={{ top:'50%', left:'13%', fontSize:'2.7vh'}}></div>

@@ -42,7 +42,7 @@ export default class PECFEST extends Component {
               component={Events}
             />
             <Route path="/events/:eventId" exact component={Event}/>
-            <Route path="/pecfest2016" exact component={PecFest2016}/>
+            <Route path="/pecfest2017" exact component={PecFest2016}/>
             <Route path="/hospitality" exact component={Hospi}/>
             <Route path="/team" exact component={Team}/>
             <Route path="/sponsors" exact component={() => <Sponsors data={sponsors}/>}/>
