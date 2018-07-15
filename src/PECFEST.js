@@ -17,6 +17,7 @@ import FeedbackDialogBox from './FeedbackDialogBox';
 import DevelopersPage from './DevelopersPage';
 import Profile from './Profile';
 import Dashboard from './Dashboard';
+import ComingSoon from './ComingSoon';
 
 import './PECFEST.css';
 
@@ -41,17 +42,21 @@ export default class PECFEST extends Component {
               exact
               component={Events}
             />
-            <Route path="/events/:eventId" exact component={Event}/>
+            {/*<Route path="/events/:eventId" exact component={Event}/>*/}
             <Route path="/pecfest2017" exact component={PecFest2016}/>
-            <Route path="/hospitality" exact component={Hospi}/>
+            {/*<Route path="/hospitality" exact component={Hospi}/>*/}
             <Route path="/team" exact component={Team}/>
             <Route path="/sponsors" exact component={() => <Sponsors data={sponsors}/>}/>
-            <Route path="/social" exact component={() => <YWC data={sponsors}/>}/>
-            <Route path="/register" exact component={SignUpOrLogInForm}/>
-            <Route path="/activities/Lectures" exact component={Lectures}/>
-            <Route path="/developers" exact component={DevelopersPage}/>
-            <Route path="/profile" exact component={Profile}/>
-            <Route path="/dashboard" exact component={Dashboard}/>
+            {/*<Route path="/social" exact component={() => <YWC data={sponsors}/>}/>*/}
+            {/*<Route path="/register" exact component={SignUpOrLogInForm}/>*/}
+            {/*<Route path="/activities/Lectures" exact component={Lectures}/>*/}
+            {/*<Route path="/developers" exact component={DevelopersPage}/>*/}
+            {/*<Route path="/profile" exact component={Profile}/>*/}
+            {/*<Route path="/dashboard" exact component={Dashboard}/>*/}
+            <Route path="/hospitality" exact component={() => <ComingSoon/>}/>
+            <Route path="/social" exact component={() => <ComingSoon/>}/>
+            <Route path="/activities" exact component={() => <ComingSoon/>}/>
+            <Route path="/register" exact component={() => <ComingSoon/>}/>
           </div>
           <NavigationButton/>
           <FeedbackDialogBox/>
